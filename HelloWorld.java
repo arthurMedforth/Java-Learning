@@ -9,6 +9,7 @@ public class HelloWorld{
         System.out.println("Hello World");
         HelloWorld newHelloWorld = new HelloWorld(22);
         System.out.println(newHelloWorld.age);
+        System.out.println("Is this working?");
     }
 
 }
