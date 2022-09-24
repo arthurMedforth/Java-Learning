@@ -10,6 +10,9 @@ public class HelloWorld{
         HelloWorld newHelloWorld = new HelloWorld(22);
         System.out.println(newHelloWorld.age);
         System.out.println("Is this working?");
+
+        int[][] numbers = {{1,2,3},{3,4,5}};
+        System.out.println(numbers[1][1]);
     }
 
 }
