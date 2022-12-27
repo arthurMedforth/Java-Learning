@@ -22,6 +22,7 @@ public class Day4 {
           sc1.nextLine();
   
           count++;
+          
         }
   
         String[] stringArray = new String[count];
