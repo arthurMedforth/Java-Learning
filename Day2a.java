@@ -1,7 +1,7 @@
 import java.io.File;  // Import the File class
 import java.util.Scanner; // Import the Scanner class to read text files
 
-public class Day2 {
+public class Day2a {
 
     public static void main(String[] args) {
 
@@ -65,17 +65,17 @@ public class Day2 {
 
                     horizPos += quantity;
 
-                    depth += (aim*quantity);
-
                     break;
 
                 case "up":
-                    aim -= quantity;
+
+                    depth -= quantity;
 
                     break;
 
                 case "down":
-                    aim += quantity;
+
+                    depth += quantity;
                     
                     break;
 

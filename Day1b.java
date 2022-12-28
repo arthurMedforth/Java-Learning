@@ -1,7 +1,7 @@
 import java.io.File;  // Import the File class
 import java.util.Scanner; // Import the Scanner class to read text files
 
-public class Day1 {
+public class Day1b {
   public static void main(String[] args) {
 
     int count = 0;
@@ -10,7 +10,7 @@ public class Day1 {
 
     try {
       // create a new file object
-      File file = new File("inpudt.txt");
+      File file = new File("input.txt");
 
       // create an object of Scanner
       // associated with the file
