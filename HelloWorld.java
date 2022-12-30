@@ -6,6 +6,8 @@ public class HelloWorld{
         this.age = age;
     }
     public static void main(String[] args){
+        String testWord = "arthur";
+        System.out.println(testWord[0]);
         System.out.println("Hello World");
         HelloWorld newHelloWorld = new HelloWorld(22);
         System.out.println(newHelloWorld.age);
