@@ -2,19 +2,10 @@ import java.io.File;  // Import the File class
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.ListIterator;  
+import java.util.List;
 
 public class Day4 {
-
-    public static ArrayList<String[]> updateBoardStates(ArrayList<String[]> bingoBoards, String numberCalled){
-      String[][] currentBoardState;
-      String[][] newBoardState = new String[5][5]
-      for (int i; i < bingoBoards.size(); i++){
-        currentBoard = bingoBoards.get(i);
-        
-      }
-
-      return bingoBoards;
-    }
 
     public static ArrayList<String[][]> getBingoBoards(String[] stringArr){
 
@@ -103,26 +94,83 @@ public class Day4 {
 
     }
 
+    public static ArrayList<String[][]> updateBoardStates(ArrayList<String[][]> bingoBoards, String numberCalled){
+      // Loop boards
+      String[][] newBoardState;
+      String[][] currentBoardState;
+
+      for(int iterator = 0; iterator < bingoBoards.size(); iterator++) {
+
+        currentBoardState = bingoBoards.get(iterator);
+        newBoardState = new String[5][5];
+        // Loop rows
+        for (int i = 0; i < 5; i++){
+          // Loop cols
+          for (int j = 0; j < 5; j++){
+            // System.out.println(numberCalled);
+            // System.out.println(currentBoardState[i][j]);
+            // System.out.println("-----------------");
+
+            if (currentBoardState[i][j].equals(numberCalled)){
+              newBoardState[i][j] = "X";
+            }else{
+              newBoardState[i][j] = currentBoardState[i][j];
+            }
+          }
+        }
+        bingoBoards.set(iterator, newBoardState);
+      }
+
+      return bingoBoards;
+    }
+
+
+    public static int checkForWinner(ArrayList<String[][]> bingoBoards){
+      String[][] currentBoardState = new String[5][5];
+      String[] rowWinState = {"X","X","X","X","X"};
+      int resultCode = -1;
+      for(int iterator = 0; iterator < bingoBoards.size(); iterator++) {
+        currentBoardState = bingoBoards.get(iterator);
+        for (int i = 0; i < 5; i++){
+          for (int j = 0; j < 5; j++){
+            if (currentBoardState[i]==rowWinState){
+              resultCode = iterator;
+              return resultCode;
+            }else if(currentBoardState[0][j]=="X" && currentBoardState[1][j]=="X" && currentBoardState[2][j]=="X" && currentBoardState[3][j]=="X" && currentBoardState[4][j]=="X"){
+              resultCode = iterator;
+              return resultCode;
+            }else{
+              continue;
+            }
+          }
+        }
+      }
+      return resultCode;
+    }
+
     public static void main(String[] args) {
       // Retrieve input from txt file
       String[] stringArr = parseInput();
 
       // Get bingo calls on first line of input file
       String bingoCallsString = stringArr[0];
-      String[] bingoCallsSplit = bingoCallsString.split("\",");
+      String[] bingoCallsSplit = bingoCallsString.split(",");
 
       // Populate ArrayLists with board states
       ArrayList<String[][]> bingoBoards = getBingoBoards(stringArr);
 
-      System.out.println(Arrays.toString(bingoCallsSplit));
-      System.out.println(Arrays.deepToString(bingoBoards.get(0)));
+      int resultCode = -1;
 
       // Loop bingo calls
-
+      for (String calledNumber:bingoCallsSplit){
       // Function to convert numbers on boards to 
-      // identifier "called out" if containing called out number
-
-      // Function to check for rows or columns of "called out" identifiers
-
+      // identifier "X" if containing called out number
+        bingoBoards = updateBoardStates(bingoBoards, calledNumber);
+        resultCode = checkForWinner(bingoBoards);
+        if (resultCode != -1){
+          System.out.println(Arrays.deepToString(bingoBoards.get(resultCode)));
+          break;
+        }
+      }
     }
 }
