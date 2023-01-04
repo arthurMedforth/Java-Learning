@@ -1,11 +1,12 @@
 import java.io.File;  // Import the File class
+import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.ListIterator;  
 import java.util.List;
 
-public class Day4 {
+public class Day4a {
 
     public static ArrayList<String[][]> getBingoBoards(String[] stringArr){
 
@@ -107,9 +108,6 @@ public class Day4 {
         for (int i = 0; i < 5; i++){
           // Loop cols
           for (int j = 0; j < 5; j++){
-            // System.out.println(numberCalled);
-            // System.out.println(currentBoardState[i][j]);
-            // System.out.println("-----------------");
 
             if (currentBoardState[i][j].equals(numberCalled)){
               newBoardState[i][j] = "X";
@@ -133,7 +131,8 @@ public class Day4 {
         currentBoardState = bingoBoards.get(iterator);
         for (int i = 0; i < 5; i++){
           for (int j = 0; j < 5; j++){
-            if (currentBoardState[i]==rowWinState){
+            // if (currentBoardState[i][0]=="X"&&currentBoardState[i][1]=="X"&&currentBoardState[i][2]=="X"&&currentBoardState[i][3]=="X"&&currentBoardState[i][4]=="X"){
+            if (Arrays.equals(currentBoardState[i],rowWinState)){
               resultCode = iterator;
               return resultCode;
             }else if(currentBoardState[0][j]=="X" && currentBoardState[1][j]=="X" && currentBoardState[2][j]=="X" && currentBoardState[3][j]=="X" && currentBoardState[4][j]=="X"){
@@ -160,17 +159,37 @@ public class Day4 {
       ArrayList<String[][]> bingoBoards = getBingoBoards(stringArr);
 
       int resultCode = -1;
-
+      int winNumber = 0;
       // Loop bingo calls
       for (String calledNumber:bingoCallsSplit){
       // Function to convert numbers on boards to 
       // identifier "X" if containing called out number
         bingoBoards = updateBoardStates(bingoBoards, calledNumber);
+        // Check for winner in row or column
         resultCode = checkForWinner(bingoBoards);
+
         if (resultCode != -1){
-          System.out.println(Arrays.deepToString(bingoBoards.get(resultCode)));
+          winNumber = Integer.parseInt(calledNumber);
           break;
+        }else{
+          continue;
         }
       }
-    }
+
+
+      
+      // Calculate sum 
+      String[][] winningArray = bingoBoards.get(resultCode);
+      int sum = 0;
+      for (int i = 0; i < 5; i++){
+        for (int j = 0; j < 5; j++){
+          if (winningArray[i][j]=="X"){
+            continue;
+          }else{
+            sum += Integer.parseInt(winningArray[i][j]);
+          }
+        }
+      }
+      System.out.println(sum*winNumber);
+    }   
 }
