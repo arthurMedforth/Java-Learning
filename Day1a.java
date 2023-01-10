@@ -4,7 +4,7 @@ import java.util.Scanner; // Import the Scanner class to read text files
 public class Day1a {
   public static void main(String[] args) {
 
-    int count = 0;
+    int count = 0; 
 
     try {
       // create a new file object
